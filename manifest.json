@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "Social Site Redirector",
+    "version": "1.0",
+    "description": "Redirects LinkedIn, Facebook, Instagram to Google when activated.",
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "permissions": [
+      "storage",
+      "tabs",
+      "webNavigation"
+    ],
+    "host_permissions": [
+      "*://facebook.com/*",
+      "*://*.facebook.com/*",
+      "*://instagram.com/*",
+      "*://*.instagram.com/*",
+      "*://linkedin.com/*",
+      "*://*.linkedin.com/*"
+    ]
+  }
+  
