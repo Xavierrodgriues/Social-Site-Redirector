@@ -14,7 +14,7 @@ This Chrome extension is designed to block URLs from specific websites (LinkedIn
 Follow these steps to install the extension manually in Chrome:
 
 ### Step 1: Download the Extension Files
-1. Go to the [GitHub repository](https://github.com/your-repo-url) (or download the ZIP file).
+1. Go to the [GitHub repository](https://github.com/Xavierrodgriues/Social-Site-Redirector) (or download the ZIP file).
 2. Download or clone the repository to your local computer.
 
 ### Step 2: Enable Developer Mode in Chrome
