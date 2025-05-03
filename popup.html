@@ -70,42 +70,42 @@
     }
 
     .blocked-item {
-      display: flex;
-      align-items: center;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 10px 16px;
-      margin-bottom: 10px;
-    }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
 
-    .url {
-      font-size: 14px;
-      color: #111827;
-      flex: 1;
-      min-width: 0; /* Important for text overflow to work properly */
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+.url {
+  font-size: 14px;
+  color: #111827;
+  flex: 1;
+  margin-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-    .remove-btn {
-      background-color: #ef4444;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      font-size: 13px;
-      font-weight: 500;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      margin-left: auto; /* This pushes the button to the end */
-      flex-shrink: 0; /* Prevents the button from shrinking */
-    }
+.remove-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
-    .remove-btn:hover {
-      background-color: #dc2626;
-    }
+.remove-btn:hover {
+  background-color: #dc2626;
+}
+
 
     .note {
       font-size: 12px;

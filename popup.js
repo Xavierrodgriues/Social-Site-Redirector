@@ -6,9 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderList(urls) {
     blockedList.innerHTML = '';
     urls.forEach((url, index) => {
-      const li = document.createElement('li');
-      li.textContent = url;
-
+      const wrapper = document.createElement('div');
+      wrapper.className = 'blocked-item';
+  
+      const urlText = document.createElement('div');
+      urlText.className = 'url';
+      urlText.textContent = url;
+  
       const removeBtn = document.createElement('button');
       removeBtn.textContent = 'Remove';
       removeBtn.className = 'remove-btn';
@@ -17,11 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.storage.local.set({ blockedUrls: urls });
         renderList(urls);
       });
-
-      li.appendChild(removeBtn);
-      blockedList.appendChild(li);
+  
+      wrapper.appendChild(urlText);
+      wrapper.appendChild(removeBtn);
+      blockedList.appendChild(wrapper);
     });
   }
+  
 
   chrome.storage.local.get('blockedUrls', (result) => {
     const urls = result.blockedUrls || [];
