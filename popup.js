@@ -1,36 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const activateBtn = document.getElementById('activateBtn');
-    const deactivateBtn = document.getElementById('deactivateBtn');
-  
-    // Initialize button states based on current active flag
-    chrome.storage.local.get('active', (result) => {
-      if (result.active) {
-        activateBtn.disabled = true;
-        deactivateBtn.disabled = false;
-      } else {
-        activateBtn.disabled = false;
-        deactivateBtn.disabled = true;
+  const urlInput = document.getElementById('urlInput');
+  const addBtn = document.getElementById('addBtn');
+  const blockedList = document.getElementById('blockedList');
+
+  function renderList(urls) {
+    blockedList.innerHTML = '';
+    urls.forEach((url, index) => {
+      const li = document.createElement('li');
+      li.textContent = url;
+
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = 'Remove';
+      removeBtn.className = 'remove-btn';
+      removeBtn.addEventListener('click', () => {
+        urls.splice(index, 1);
+        chrome.storage.local.set({ blockedUrls: urls });
+        renderList(urls);
+      });
+
+      li.appendChild(removeBtn);
+      blockedList.appendChild(li);
+    });
+  }
+
+  chrome.storage.local.get('blockedUrls', (result) => {
+    const urls = result.blockedUrls || [];
+    renderList(urls);
+  });
+
+  addBtn.addEventListener('click', () => {
+    const newUrl = urlInput.value.trim();
+    if (!newUrl) return;
+    chrome.storage.local.get('blockedUrls', (result) => {
+      const urls = result.blockedUrls || [];
+      if (!urls.includes(newUrl)) {
+        urls.push(newUrl);
+        chrome.storage.local.set({ blockedUrls: urls });
+        renderList(urls);
+        urlInput.value = '';
       }
     });
-  
-    // Activate button click
-    activateBtn.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ action: 'activate' }, (response) => {
-        if (response.status === 'activated') {
-          activateBtn.disabled = true;
-          deactivateBtn.disabled = false;
-        }
-      });
-    });
-  
-    // Deactivate button click
-    deactivateBtn.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ action: 'deactivate' }, (response) => {
-        if (response.status === 'deactivated') {
-          activateBtn.disabled = false;
-          deactivateBtn.disabled = true;
-        }
-      });
-    });
   });
-  
+});

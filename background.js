@@ -1,33 +1,23 @@
-let isActive = false;
+let blockedUrls = [];
 
-// Initialize isActive from storage (default to false)
-chrome.storage.local.get(['active'], (result) => {
-  isActive = result.active || false;
+// Load initial list
+chrome.storage.local.get('blockedUrls', (result) => {
+  blockedUrls = result.blockedUrls || [];
 });
 
-// Listen for Activate/Deactivate messages from popup
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'activate') {
-    isActive = true;
-    chrome.storage.local.set({ active: true });
-    sendResponse({ status: 'activated' });
-  } else if (message.action === 'deactivate') {
-    isActive = false;
-    chrome.storage.local.set({ active: false });
-    sendResponse({ status: 'deactivated' });
+// Watch for updates
+chrome.storage.onChanged.addListener((changes) => {
+  if (changes.blockedUrls) {
+    blockedUrls = changes.blockedUrls.newValue || [];
   }
 });
 
-// Intercept navigations to the specified hosts (main_frame only)
+// Redirect if URL is blocked
 chrome.webNavigation.onBeforeNavigate.addListener((details) => {
-  if (isActive && details.frameId === 0) {
-    // Redirect to Google
+  const hostname = new URL(details.url).hostname;
+  if (blockedUrls.some(blocked => hostname.includes(blocked))) {
     chrome.tabs.update(details.tabId, { url: "https://www.google.com" });
   }
 }, {
-  url: [
-    { hostSuffix: 'facebook.com', schemes: ['http', 'https'] },
-    { hostSuffix: 'instagram.com', schemes: ['http', 'https'] },
-    { hostSuffix: 'linkedin.com', schemes: ['http', 'https'] }
-  ]
+  url: [{ urlMatches: 'http[s]?://.*' }]
 });
