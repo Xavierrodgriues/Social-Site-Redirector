@@ -59,7 +59,7 @@ Feel free to contribute to this project! If you encounter any issues or have sug
 This project is open-source and available under the [MIT License](LICENSE).
 
 ## Contact
-If you have any questions or need support, feel free to reach out to me via [LinkedIn](https://www.linkedin.com/in/your-profile) or email at [your-email@example.com].
+If you have any questions or need support, feel free to reach out to me via [LinkedIn](https://www.linkedin.com/in/xavier-rodrigues-70950a254/) or email at [xavierrodgriues123@gmail.com].
 
 ---
 
